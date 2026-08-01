@@ -920,6 +920,78 @@ h1 {
   color: var(--primary);
 }
 
+.evidence-tile {
+  background: var(--parchment);
+}
+
+.evidence-wrap {
+  max-width: 920px;
+}
+
+.source-quotation {
+  margin: 44px 0 36px;
+  padding: 24px 28px;
+  border-left: 3px solid var(--primary);
+  background: rgb(255 255 255 / 72%);
+}
+
+.source-quotation p {
+  margin-bottom: 12px;
+  color: #424245;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.source-quotation footer {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.source-quotation cite,
+.citation-list cite {
+  font-style: normal;
+}
+
+.source-quotation a,
+.citation-list a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-decoration-color: rgb(0 102 204 / 32%);
+  text-underline-offset: 4px;
+}
+
+.citation-list {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--hairline);
+  list-style: none;
+}
+
+.citation-list li {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 20px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.citation-number {
+  color: var(--muted);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.citation-list cite {
+  font-weight: 600;
+}
+
+.citation-list p {
+  max-width: 760px;
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
 .site-footer {
   padding: 64px 0 28px;
   background: var(--parchment);
@@ -1056,8 +1128,12 @@ h1 {
     padding-top: 56px;
   }
 
-  .global-links a:not(:last-child) {
+  .global-links a:not(.nav-trust-link) {
     display: none;
+  }
+
+  .global-links {
+    gap: 20px;
   }
 
   .level-grid,
@@ -1220,6 +1296,15 @@ h1 {
 
   .quality-table tr {
     padding: 20px 16px;
+  }
+
+  .source-quotation {
+    padding: 20px;
+  }
+
+  .citation-list li {
+    grid-template-columns: 32px 1fr;
+    gap: 12px;
   }
 
   .paper-visual {

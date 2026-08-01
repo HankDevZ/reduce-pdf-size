@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
 import "./globals.css";
+import { FirebaseAnalytics } from "./components/FirebaseAnalytics";
 import {
   HOME_DESCRIPTION,
   HOME_TITLE,
@@ -67,7 +68,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        {children}
+        <FirebaseAnalytics />
+      </body>
     </html>
   );
 }

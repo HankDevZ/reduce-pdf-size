@@ -1,4 +1,5 @@
 import { faqAnswerText, faqItems } from "../content";
+import { PRIMARY_SOURCES } from "../seo";
 
 export function GET(request: Request) {
   const origin = new URL(request.url).origin;
@@ -8,6 +9,9 @@ export function GET(request: Request) {
         `### ${item.question}\n\n${faqAnswerText(item)}`,
     )
     .join("\n\n");
+  const sources = PRIMARY_SOURCES.map(
+    (source) => `- ${source.title}: ${source.url}\n  ${source.note}`,
+  ).join("\n");
 
   const markdown = `# Reduce PDF Size: Full Product Reference
 
@@ -43,7 +47,11 @@ The project is built and maintained by HankDevZ. It was published and last revie
 
 ## Privacy and network behavior
 
-PDF bytes are read in browser memory and passed to a browser Web Worker. They are not uploaded to a compression server. The application loads its own page, scripts, worker, and Ghostscript WebAssembly assets from the same website. This version has no account system, advertising, behavioral analytics, cloud compression fallback, or file-upload service.
+PDF bytes are read in browser memory and passed to a browser Web Worker. They are not uploaded to a compression server. The application loads its own page, scripts, worker, and Ghostscript WebAssembly assets from the same website. This version has no account system, advertising, cloud compression fallback, or file-upload service. Firebase Analytics loads after the initial page load for standard website usage measurement. The application does not send selected PDF names, PDF bytes, compression settings, or compressed results to Analytics.
+
+## Sources and verification
+
+${sources}
 
 ## Frequently asked questions
 

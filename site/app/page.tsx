@@ -10,6 +10,7 @@ import {
   HOME_TITLE,
   MAINTAINER_GITHUB,
   MAINTAINER_NAME,
+  PRIMARY_SOURCES,
   SITE_DATE_LABEL,
   SITE_MODIFIED_DATE,
   SITE_PUBLISHED_DATE,
@@ -43,6 +44,8 @@ export default async function Home() {
     url: `${origin}/`,
     author: { "@id": `${origin}/#maintainer` },
     publisher: { "@id": `${origin}/#maintainer` },
+    datePublished: SITE_PUBLISHED_DATE,
+    dateModified: SITE_MODIFIED_DATE,
   };
 
   const maintainerSchema = {
@@ -52,6 +55,12 @@ export default async function Home() {
     name: MAINTAINER_NAME,
     url: `${origin}/about`,
     sameAs: [MAINTAINER_GITHUB],
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "support and corrections",
+      email: "pam41320@gmail.com",
+      url: `${origin}/contact`,
+    },
   };
 
   const webPageSchema = {
@@ -64,10 +73,13 @@ export default async function Home() {
     inLanguage: "en",
     datePublished: SITE_PUBLISHED_DATE,
     dateModified: SITE_MODIFIED_DATE,
+    lastReviewed: SITE_MODIFIED_DATE,
     author: { "@id": `${origin}/#maintainer` },
+    reviewedBy: { "@id": `${origin}/#maintainer` },
     publisher: { "@id": `${origin}/#maintainer` },
     isPartOf: { "@id": `${origin}/#website` },
     mainEntity: { "@id": `${origin}/#web-application` },
+    citation: PRIMARY_SOURCES.map((source) => source.url),
   };
 
   const applicationSchema = {
@@ -91,6 +103,7 @@ export default async function Home() {
     isAccessibleForFree: true,
     isPartOf: { "@id": `${origin}/#website` },
     author: { "@id": `${origin}/#maintainer` },
+    datePublished: SITE_PUBLISHED_DATE,
     dateModified: SITE_MODIFIED_DATE,
     offers: {
       "@type": "Offer",
@@ -106,6 +119,8 @@ export default async function Home() {
     url: `${origin}/#faq`,
     inLanguage: "en",
     isPartOf: { "@id": `${origin}/#website` },
+    datePublished: SITE_PUBLISHED_DATE,
+    dateModified: SITE_MODIFIED_DATE,
     mainEntity: faqItems.map((item) => ({
       "@type": "Question",
       name: item.question,
@@ -343,6 +358,65 @@ export default async function Home() {
                 </details>
               ))}
             </div>
+          </div>
+        </section>
+
+        <section
+          className="content-tile evidence-tile"
+          id="sources"
+          aria-labelledby="sources-heading"
+        >
+          <div className="content-wrap evidence-wrap">
+            <p className="section-kicker">Evidence and methodology</p>
+            <h2 id="sources-heading">Sources Behind This PDF Compressor</h2>
+            <p className="section-lead">
+              Product claims are checked against the public implementation and
+              primary documentation. Last reviewed{" "}
+              <time dateTime={SITE_MODIFIED_DATE}>{SITE_DATE_LABEL}</time>.
+            </p>
+            <blockquote
+              className="source-quotation"
+              cite={PRIMARY_SOURCES[0].url}
+            >
+              <p>
+                Ghostscript explains that pdfwrite creates “a new PDF file.”
+                That is why this site tells you to keep the original and inspect
+                every compressed result.
+              </p>
+              <footer>
+                —{" "}
+                <cite>
+                  <a
+                    href={PRIMARY_SOURCES[0].url}
+                    target="_blank"
+                    rel="noreferrer external"
+                  >
+                    Ghostscript documentation
+                  </a>
+                </cite>
+              </footer>
+            </blockquote>
+            <ol className="citation-list" aria-label="Primary sources">
+              {PRIMARY_SOURCES.map((source, index) => (
+                <li id={`citation-${source.id}`} key={source.id}>
+                  <span className="citation-number" aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <cite>
+                      <a
+                        href={source.url}
+                        target="_blank"
+                        rel="noreferrer external"
+                      >
+                        {source.title} <span aria-hidden="true">↗</span>
+                      </a>
+                    </cite>
+                    <p>{source.note}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
           </div>
         </section>
       </main>

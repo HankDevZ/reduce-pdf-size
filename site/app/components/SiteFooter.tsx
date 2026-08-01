@@ -10,7 +10,7 @@ export function SiteFooter() {
           </Link>
           <p>Private PDF compression, directly in your browser.</p>
         </div>
-        <nav aria-label="Footer navigation">
+        <nav aria-label="About, contact, and legal navigation">
           <Link href="/">Tool</Link>
           <Link href="/about">About</Link>
           <Link href="/privacy">Privacy</Link>

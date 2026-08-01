@@ -85,7 +85,16 @@ test("server-renders the complete homepage and security headers", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
-  assert.match(response.headers.get("content-security-policy") ?? "", /worker-src 'self'/);
+  const contentSecurityPolicy =
+    response.headers.get("content-security-policy") ?? "";
+  assert.match(contentSecurityPolicy, /worker-src 'self'/);
+  assert.match(contentSecurityPolicy, /script-src[^;]*https:\/\/www\.googletagmanager\.com/);
+  assert.match(contentSecurityPolicy, /connect-src[^;]*https:\/\/firebase\.googleapis\.com/);
+  assert.match(
+    contentSecurityPolicy,
+    /connect-src[^;]*https:\/\/firebaseinstallations\.googleapis\.com/,
+  );
+  assert.match(contentSecurityPolicy, /connect-src[^;]*https:\/\/\*\.google-analytics\.com/);
 
   const html = await response.text();
   assert.match(
@@ -105,6 +114,10 @@ test("server-renders the complete homepage and security headers", async () => {
   assert.match(html, /Comparison guide only/);
   assert.match(html, /class="quality-table"/);
   assert.doesNotMatch(html, /class="quality-grid"/);
+  assert.match(html, /Sources Behind This PDF Compressor/);
+  assert.match(html, /<blockquote[^>]*cite="https:\/\/ghostscript\.readthedocs\.io/);
+  assert.match(html, /<cite>/);
+  assert.match(html, /class="citation-list"/);
   assert.match(html, /FAQPage/);
   assert.match(html, /WebApplication/);
   assert.match(html, /WebSite/);
@@ -134,6 +147,8 @@ test("all public pages have unique on-page SEO metadata and one H1", async () =>
     assert.equal((html.match(/<h1(?:\s|>)/g) ?? []).length, 1, `${path} H1 count`);
     assert.match(html, /<html lang="en">/);
     assert.equal(linkHref(html, "canonical"), `http://localhost${path}`);
+    assert.equal(metaContent(html, "name", "dcterms.created"), "2026-08-01");
+    assert.equal(metaContent(html, "name", "dcterms.modified"), "2026-08-01");
     assert.notEqual(metaContent(html, "name", "robots"), "noindex");
     titles.add(title);
     descriptions.add(description);
@@ -187,18 +202,33 @@ test("SEO metadata and JSON-LD are complete and internally consistent", async ()
   assert.equal(website.url, "http://localhost/");
   assert.equal(website.inLanguage, "en");
   assert.equal(website.author["@id"], "http://localhost/#maintainer");
+  assert.equal(website.datePublished, "2026-08-01");
+  assert.equal(website.dateModified, "2026-08-01");
   assert.equal(webPage.datePublished, "2026-08-01");
   assert.equal(webPage.dateModified, "2026-08-01");
+  assert.equal(webPage.lastReviewed, "2026-08-01");
   assert.equal(webPage.author["@id"], "http://localhost/#maintainer");
+  assert.equal(webPage.reviewedBy["@id"], "http://localhost/#maintainer");
+  assert.deepEqual(webPage.citation, [
+    "https://ghostscript.readthedocs.io/en/latest/VectorDevices.html",
+    "https://github.com/HankDevZ/reduce-pdf-size",
+    "https://firebase.google.com/docs/analytics/web/get-started",
+  ]);
   assert.equal(maintainer.name, "HankDevZ");
   assert.equal(maintainer.url, "http://localhost/about");
   assert.deepEqual(maintainer.sameAs, ["https://github.com/HankDevZ"]);
+  assert.equal(maintainer.contactPoint.url, "http://localhost/contact");
+  assert.equal(maintainer.contactPoint.email, "pam41320@gmail.com");
   assert.equal(faq.mainEntity.length, 6);
   assert.equal(faq.inLanguage, "en");
+  assert.equal(faq.datePublished, "2026-08-01");
+  assert.equal(faq.dateModified, "2026-08-01");
   assert.equal(application.offers.price, "0");
   assert.equal(application.applicationCategory, "UtilitiesApplication");
   assert.equal(application.inLanguage, "en");
   assert.equal(application.featureList.length, 4);
+  assert.equal(application.datePublished, "2026-08-01");
+  assert.equal(application.dateModified, "2026-08-01");
   assert.equal((html.match(/<title>/g) ?? []).length, 1);
   assert.match(html, /<meta name="description" content="[^"]+"/);
   assert.match(html, /<link rel="canonical" href="http:\/\/localhost\/"/);
@@ -263,6 +293,10 @@ test("llms.txt exposes concise and full factual GEO references", async () => {
   assert.match(concise, /https:\/\/github\.com\/HankDevZ\/reduce-pdf-size/);
   assert.match(concise, /http:\/\/localhost\/about/);
   assert.match(concise, /does not promise an exact target size or lossless output/);
+  assert.match(concise, /Firebase Analytics loads after the initial page load/);
+  assert.match(concise, /does not send selected PDF names, PDF bytes/);
+  assert.match(concise, /## Primary sources/);
+  assert.match(concise, /ghostscript\.readthedocs\.io\/en\/latest\/VectorDevices\.html/);
 
   const fullResponse = await render("/llms-full.txt");
   assert.equal(fullResponse.status, 200);
@@ -271,11 +305,40 @@ test("llms.txt exposes concise and full factual GEO references", async () => {
   assert.match(full, /^# Reduce PDF Size: Full Product Reference\n\n>/);
   assert.match(full, /## Privacy and network behavior/);
   assert.match(full, /built and maintained by HankDevZ/);
+  assert.match(full, /Firebase Analytics loads after the initial page load/);
+  assert.doesNotMatch(full, /no account system, advertising, behavioral analytics/);
+  assert.match(full, /## Sources and verification/);
+  assert.match(full, /firebase\.google\.com\/docs\/analytics\/web\/get-started/);
   assert.equal((full.match(/^### /gm) ?? []).length, 6);
 
   const typoResponse = await render("/llm.txt");
   assert.equal(typoResponse.status, 308);
   assert.equal(typoResponse.headers.get("location"), "http://localhost/llms.txt");
+});
+
+test("Firebase Analytics is disclosed and deferred outside the initial render", async () => {
+  const privacy = await (await render("/privacy")).text();
+  assert.match(privacy, /No accounts and limited analytics/);
+  assert.match(privacy, /Firebase Analytics/);
+  assert.match(privacy, /G-BGHK5Q8Z3R/);
+  assert.match(privacy, /does not send the selected[\s\S]*PDF bytes/);
+
+  const layout = await readFile(new URL("../app/layout.tsx", import.meta.url), "utf8");
+  const analytics = await readFile(
+    new URL("../app/components/FirebaseAnalytics.tsx", import.meta.url),
+    "utf8",
+  );
+  assert.doesNotMatch(layout, /from ["']firebase\//);
+  assert.match(analytics, /process\.env\.NODE_ENV !== "production"/);
+  assert.match(analytics, /requestIdleCallback/);
+  assert.match(analytics, /import\("firebase\/app"\)/);
+  assert.match(analytics, /import\("firebase\/analytics"\)/);
+  assert.match(analytics, /analyticsModule\.isSupported\(\)/);
+  assert.doesNotMatch(analytics, /logEvent|setUserId|setUserProperties/);
+
+  const homepage = await (await render()).text();
+  assert.doesNotMatch(homepage, /googletagmanager\.com\/gtag\/js/);
+  assert.doesNotMatch(homepage, /G-BGHK5Q8Z3R/);
 });
 
 test("renders about, legal, source, contact, and a true not-found response", async () => {
@@ -307,6 +370,19 @@ test("all internal navigation links resolve without errors", async () => {
     const response = await render(href);
     assert.ok(response.status < 400, `${href} returned ${response.status}`);
   }
+});
+
+test("About and Contact are exposed in both navigation landmarks", async () => {
+  const html = await (await render()).text();
+  const aboutLinks = html.match(/<a[^>]*href="\/about"[^>]*>About<\/a>/g) ?? [];
+  const contactLinks =
+    html.match(/<a[^>]*href="\/contact"[^>]*>Contact(?: &amp; Feedback)?<\/a>/g) ?? [];
+  assert.ok(aboutLinks.length >= 2, "About is present in header and footer");
+  assert.ok(contactLinks.length >= 2, "Contact is present in header and footer");
+
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+  assert.match(css, /\.global-links a:not\(\.nav-trust-link\)/);
+  assert.doesNotMatch(css, /\.global-links a:not\(:last-child\)/);
 });
 
 test("source and feedback destinations use the approved external addresses", async () => {

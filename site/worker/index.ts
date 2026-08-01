@@ -44,7 +44,7 @@ const worker = {
     const headers = new Headers(response.headers);
     headers.set(
       "content-security-policy",
-      "default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
+      "default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://firebase.googleapis.com https://firebaseinstallations.googleapis.com https://*.google-analytics.com; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
     );
     headers.set("referrer-policy", "strict-origin-when-cross-origin");
     headers.set("x-content-type-options", "nosniff");

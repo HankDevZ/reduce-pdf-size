@@ -1,10 +1,15 @@
+import { PRIMARY_SOURCES } from "../seo";
+
 export function GET(request: Request) {
   const origin = new URL(request.url).origin;
+  const sources = PRIMARY_SOURCES.map(
+    (source) => `- [${source.title}](${source.url}): ${source.note}`,
+  ).join("\n");
   const markdown = `# Reduce PDF Size
 
 > A free, English-language PDF compressor that processes one PDF locally in the browser without uploading the file to a compression server.
 
-Reduce PDF Size supports PDF files up to 100MB and provides High Quality, Balanced, and Smallest Size compression levels. Balanced is the default. Results vary with document content, so the service does not promise an exact target size or lossless output. No account is required.
+Reduce PDF Size supports PDF files up to 100MB and provides High Quality, Balanced, and Smallest Size compression levels. Balanced is the default. Results vary with document content, so the service does not promise an exact target size or lossless output. No account is required. Firebase Analytics loads after the initial page load for standard website usage measurement; the application does not send selected PDF names, PDF bytes, compression settings, or compressed results to Analytics.
 
 ## Use the tool
 
@@ -18,6 +23,10 @@ Reduce PDF Size supports PDF files up to 100MB and provides High Quality, Balanc
 - [About](${origin}/about): Maintainer identity, review process, stated limits, and correction channel.
 - [Source Code](${origin}/source): Open-source and Ghostscript WebAssembly information.
 - [GitHub repository](https://github.com/HankDevZ/reduce-pdf-size): Application source, build files, licenses, and third-party notices.
+
+## Primary sources
+
+${sources}
 
 ## Support
 

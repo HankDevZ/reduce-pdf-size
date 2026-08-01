@@ -11,6 +11,27 @@ export const SITE_PUBLISHED_DATE = "2026-08-01";
 export const SITE_MODIFIED_DATE = "2026-08-01";
 export const SITE_DATE_LABEL = "August 1, 2026";
 
+export const PRIMARY_SOURCES = [
+  {
+    id: "ghostscript-pdfwrite",
+    title: "Ghostscript: High Level Devices and pdfwrite",
+    url: "https://ghostscript.readthedocs.io/en/latest/VectorDevices.html",
+    note: "Primary documentation for pdfwrite behavior, output caveats, image downsampling, and the screen, ebook, and printer PDFSETTINGS presets.",
+  },
+  {
+    id: "application-source",
+    title: "Reduce PDF Size source code",
+    url: "https://github.com/HankDevZ/reduce-pdf-size",
+    note: "The public implementation, worker path, build files, tests, license, and change history used to verify the product claims on this page.",
+  },
+  {
+    id: "firebase-analytics",
+    title: "Firebase: Get started with Google Analytics for Web",
+    url: "https://firebase.google.com/docs/analytics/web/get-started",
+    note: "Primary documentation for the optional usage measurement disclosed on the Privacy page.",
+  },
+] as const;
+
 export const SOCIAL_IMAGE = {
   url: "/og.png",
   width: 1730,
@@ -38,6 +59,10 @@ export function createPageMetadata({
     title: absoluteTitle ? { absolute: title } : title,
     description,
     alternates: { canonical: path },
+    other: {
+      "dcterms.created": SITE_PUBLISHED_DATE,
+      "dcterms.modified": SITE_MODIFIED_DATE,
+    },
     openGraph: {
       type: "website",
       locale: "en_US",

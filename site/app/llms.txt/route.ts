@@ -15,6 +15,7 @@ Reduce PDF Size supports PDF files up to 100MB and provides High Quality, Balanc
 ## Product reference
 
 - [Full LLM reference](${origin}/llms-full.txt): Consolidated capabilities, workflow, limits, privacy facts, and FAQs.
+- [About](${origin}/about): Maintainer identity, review process, stated limits, and correction channel.
 - [Source Code](${origin}/source): Open-source and Ghostscript WebAssembly information.
 - [GitHub repository](https://github.com/HankDevZ/reduce-pdf-size): Application source, build files, licenses, and third-party notices.
 

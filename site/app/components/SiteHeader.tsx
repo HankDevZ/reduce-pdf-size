@@ -11,8 +11,9 @@ export function SiteHeader() {
           <div className="global-links">
             <Link href="/#how-it-works">How it works</Link>
             <Link href="/#faq">FAQ</Link>
+            <Link href="/about">About</Link>
             <Link href="/privacy">Privacy</Link>
-            <Link href="/contact">Feedback</Link>
+            <Link href="/contact">Contact</Link>
           </div>
         </div>
       </nav>

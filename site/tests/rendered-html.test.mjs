@@ -39,6 +39,11 @@ const publicPages = {
     description:
       "Reduce PDF file size in your browser for free. Choose a compression level, keep your files private, and download a smaller PDF without uploading it.",
   },
+  "/about": {
+    title: "About | Reduce PDF Size",
+    description:
+      "Who maintains Reduce PDF Size, how its product information is checked, and where to report corrections or technical issues.",
+  },
   "/privacy": {
     title: "Privacy | Reduce PDF Size",
     description:
@@ -94,6 +99,12 @@ test("server-renders the complete homepage and security headers", async () => {
   assert.match(html, /How to Compress a Scanned PDF/);
   assert.equal((html.match(/class="step-card-link"/g) ?? []).length, 3);
   assert.equal((html.match(/class="step-card-link" href="#tool"/g) ?? []).length, 3);
+  assert.match(html, /Built and maintained by/);
+  assert.match(html, /rel="author"/);
+  assert.match(html, /<time dateTime="2026-08-01">August 1, 2026<\/time>/);
+  assert.match(html, /Comparison guide only/);
+  assert.match(html, /class="quality-table"/);
+  assert.doesNotMatch(html, /class="quality-grid"/);
   assert.match(html, /FAQPage/);
   assert.match(html, /WebApplication/);
   assert.match(html, /WebSite/);
@@ -164,13 +175,24 @@ test("SEO metadata and JSON-LD are complete and internally consistent", async ()
   const faq = schemas.find((schema) => schema["@type"] === "FAQPage");
   const application = schemas.find((schema) => schema["@type"] === "WebApplication");
   const website = schemas.find((schema) => schema["@type"] === "WebSite");
+  const webPage = schemas.find((schema) => schema["@type"] === "WebPage");
+  const maintainer = schemas.find((schema) => schema["@type"] === "Person");
 
   assert.ok(faq, "FAQPage schema is present and parseable");
   assert.ok(application, "WebApplication schema is present and parseable");
   assert.ok(website, "WebSite schema is present and parseable");
+  assert.ok(webPage, "WebPage schema is present and parseable");
+  assert.ok(maintainer, "Person maintainer schema is present and parseable");
   assert.equal(website.name, "Reduce PDF Size");
   assert.equal(website.url, "http://localhost/");
   assert.equal(website.inLanguage, "en");
+  assert.equal(website.author["@id"], "http://localhost/#maintainer");
+  assert.equal(webPage.datePublished, "2026-08-01");
+  assert.equal(webPage.dateModified, "2026-08-01");
+  assert.equal(webPage.author["@id"], "http://localhost/#maintainer");
+  assert.equal(maintainer.name, "HankDevZ");
+  assert.equal(maintainer.url, "http://localhost/about");
+  assert.deepEqual(maintainer.sameAs, ["https://github.com/HankDevZ"]);
   assert.equal(faq.mainEntity.length, 6);
   assert.equal(faq.inLanguage, "en");
   assert.equal(application.offers.price, "0");
@@ -221,12 +243,13 @@ test("robots and sitemap expose all canonical public pages", async () => {
   );
   assert.deepEqual(locations, [
     "http://localhost/",
+    "http://localhost/about",
     "http://localhost/privacy",
     "http://localhost/terms",
     "http://localhost/source",
     "http://localhost/contact",
   ]);
-  assert.deepEqual(lastModified, Array(5).fill("2026-08-01"));
+  assert.deepEqual(lastModified, Array(6).fill("2026-08-01"));
   assert.doesNotMatch(sitemap, /<priority>|<changefreq>/);
 });
 
@@ -238,6 +261,7 @@ test("llms.txt exposes concise and full factual GEO references", async () => {
   assert.match(concise, /^# Reduce PDF Size\n\n>/);
   assert.match(concise, /http:\/\/localhost\/llms-full\.txt/);
   assert.match(concise, /https:\/\/github\.com\/HankDevZ\/reduce-pdf-size/);
+  assert.match(concise, /http:\/\/localhost\/about/);
   assert.match(concise, /does not promise an exact target size or lossless output/);
 
   const fullResponse = await render("/llms-full.txt");
@@ -246,6 +270,7 @@ test("llms.txt exposes concise and full factual GEO references", async () => {
   const full = await fullResponse.text();
   assert.match(full, /^# Reduce PDF Size: Full Product Reference\n\n>/);
   assert.match(full, /## Privacy and network behavior/);
+  assert.match(full, /built and maintained by HankDevZ/);
   assert.equal((full.match(/^### /gm) ?? []).length, 6);
 
   const typoResponse = await render("/llm.txt");
@@ -253,8 +278,8 @@ test("llms.txt exposes concise and full factual GEO references", async () => {
   assert.equal(typoResponse.headers.get("location"), "http://localhost/llms.txt");
 });
 
-test("renders legal, source, contact, and a true not-found response", async () => {
-  for (const path of ["/privacy", "/terms", "/source", "/contact"]) {
+test("renders about, legal, source, contact, and a true not-found response", async () => {
+  for (const path of ["/about", "/privacy", "/terms", "/source", "/contact"]) {
     const response = await render(path);
     assert.equal(response.status, 200);
     assert.match(await response.text(), /Return to the PDF compressor/);

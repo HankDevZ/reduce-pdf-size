@@ -17,6 +17,8 @@ export function GET(request: Request) {
 
 Reduce PDF Size is a free, English-language web application for reducing PDF file size. It processes one PDF at a time, supports files up to 100MB, requires no account, and runs the compression engine locally in the user's browser.
 
+The project is built and maintained by HankDevZ. It was published and last reviewed on August 1, 2026. The public source and commit history are available at https://github.com/HankDevZ/reduce-pdf-size. Corrections can be sent through the contact page.
+
 ## How it works
 
 1. Select or drag one PDF into the compressor.
@@ -50,6 +52,7 @@ ${faq}
 ## Canonical pages
 
 - Tool: ${origin}/
+- About and maintainer information: ${origin}/about
 - Privacy: ${origin}/privacy
 - Terms: ${origin}/terms
 - Source: ${origin}/source

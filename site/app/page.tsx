@@ -4,7 +4,16 @@ import { PdfCompressor } from "./components/PdfCompressor";
 import { SiteFooter } from "./components/SiteFooter";
 import { SiteHeader } from "./components/SiteHeader";
 import { faqAnswerText, faqItems } from "./content";
-import { createPageMetadata, HOME_DESCRIPTION, HOME_TITLE } from "./seo";
+import {
+  createPageMetadata,
+  HOME_DESCRIPTION,
+  HOME_TITLE,
+  MAINTAINER_GITHUB,
+  MAINTAINER_NAME,
+  SITE_DATE_LABEL,
+  SITE_MODIFIED_DATE,
+  SITE_PUBLISHED_DATE,
+} from "./seo";
 
 export const metadata = createPageMetadata({
   title: HOME_TITLE,
@@ -32,6 +41,33 @@ export default async function Home() {
     description: HOME_DESCRIPTION,
     inLanguage: "en",
     url: `${origin}/`,
+    author: { "@id": `${origin}/#maintainer` },
+    publisher: { "@id": `${origin}/#maintainer` },
+  };
+
+  const maintainerSchema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": `${origin}/#maintainer`,
+    name: MAINTAINER_NAME,
+    url: `${origin}/about`,
+    sameAs: [MAINTAINER_GITHUB],
+  };
+
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${origin}/#webpage`,
+    url: `${origin}/`,
+    name: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    inLanguage: "en",
+    datePublished: SITE_PUBLISHED_DATE,
+    dateModified: SITE_MODIFIED_DATE,
+    author: { "@id": `${origin}/#maintainer` },
+    publisher: { "@id": `${origin}/#maintainer` },
+    isPartOf: { "@id": `${origin}/#website` },
+    mainEntity: { "@id": `${origin}/#web-application` },
   };
 
   const applicationSchema = {
@@ -54,6 +90,8 @@ export default async function Home() {
     inLanguage: "en",
     isAccessibleForFree: true,
     isPartOf: { "@id": `${origin}/#website` },
+    author: { "@id": `${origin}/#maintainer` },
+    dateModified: SITE_MODIFIED_DATE,
     offers: {
       "@type": "Offer",
       price: "0",
@@ -96,6 +134,16 @@ export default async function Home() {
               <li>No signup required</li>
               <li>PDF files up to 100MB</li>
             </ul>
+            <p className="page-byline">
+              Built and maintained by{" "}
+              <Link href="/about" rel="author">
+                {MAINTAINER_NAME}
+              </Link>
+              <span aria-hidden="true"> · </span>
+              Published <time dateTime={SITE_PUBLISHED_DATE}>{SITE_DATE_LABEL}</time>
+              <span aria-hidden="true"> · </span>
+              Updated <time dateTime={SITE_MODIFIED_DATE}>{SITE_DATE_LABEL}</time>
+            </p>
           </div>
           <PdfCompressor />
         </section>
@@ -189,32 +237,63 @@ export default async function Home() {
               Compression can change image quality. Choose the lightest level
               that gets your file where it needs to go.
             </p>
-            <div className="quality-grid">
-              <article>
-                <span className="quality-mark">01</span>
-                <h3>High Quality</h3>
-                <p>
-                  Prioritizes image clarity. File-size reduction is usually more
-                  modest.
-                </p>
-              </article>
-              <article className="featured-quality">
-                <span className="quality-mark">02</span>
-                <p className="recommended">Recommended</p>
-                <h3>Balanced</h3>
-                <p>
-                  A practical default for ordinary sharing, email, and online
-                  uploads.
-                </p>
-              </article>
-              <article>
-                <span className="quality-mark">03</span>
-                <h3>Smallest Size</h3>
-                <p>
-                  Prioritizes a smaller file. Fine image details may appear less
-                  sharp.
-                </p>
-              </article>
+            <div className="quality-comparison">
+              <p className="quality-guide-note">
+                Comparison guide only — choose a level in the compressor above.
+              </p>
+              <div className="quality-table-wrap">
+                <table className="quality-table">
+                  <caption className="visually-hidden">
+                    Static comparison of the three PDF compression levels
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Compression level</th>
+                      <th scope="col">Best for</th>
+                      <th scope="col">Tradeoff</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">
+                        <span className="quality-index">01</span>
+                        <span>High Quality</span>
+                      </th>
+                      <td data-label="Best for">
+                        Detailed images, charts, and documents you plan to inspect closely.
+                      </td>
+                      <td data-label="Tradeoff">
+                        Prioritizes image clarity, so size reduction is usually more modest.
+                      </td>
+                    </tr>
+                    <tr className="recommended-row">
+                      <th scope="row">
+                        <span className="quality-index">02</span>
+                        <span>Balanced</span>
+                        <span className="recommended-badge">Recommended default</span>
+                      </th>
+                      <td data-label="Best for">
+                        Ordinary sharing, email attachments, forms, and online uploads.
+                      </td>
+                      <td data-label="Tradeoff">
+                        A practical balance between readable output and a smaller file.
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">
+                        <span className="quality-index">03</span>
+                        <span>Smallest Size</span>
+                      </th>
+                      <td data-label="Best for">
+                        Strict upload limits when the other levels still produce a large PDF.
+                      </td>
+                      <td data-label="Tradeoff">
+                        Prioritizes a smaller file; fine image details may appear less sharp.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </section>
@@ -271,6 +350,14 @@ export default async function Home() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(maintainerSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
       />
       <script
         type="application/ld+json"

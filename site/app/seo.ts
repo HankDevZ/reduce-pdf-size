@@ -5,6 +5,11 @@ export const HOME_TITLE =
   "Reduce PDF Size Online Free — Private PDF Compressor";
 export const HOME_DESCRIPTION =
   "Reduce PDF file size in your browser for free. Choose a compression level, keep your files private, and download a smaller PDF without uploading it.";
+export const MAINTAINER_NAME = "HankDevZ";
+export const MAINTAINER_GITHUB = "https://github.com/HankDevZ";
+export const SITE_PUBLISHED_DATE = "2026-08-01";
+export const SITE_MODIFIED_DATE = "2026-08-01";
+export const SITE_DATE_LABEL = "August 1, 2026";
 
 export const SOCIAL_IMAGE = {
   url: "/og.png",

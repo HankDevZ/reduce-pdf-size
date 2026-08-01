@@ -7,6 +7,7 @@
 - [product-plan.md](./product-plan.md)：产品目标、功能范围、技术方案和发布方式。
 - [seo-content-plan.md](./seo-content-plan.md)：搜索问题归类、页面内容结构和 SEO 写作要求。
 - [site-completion-checklist.md](./site-completion-checklist.md)：网站完成后必须逐项核对的验收清单。
+- [adsense-progress.md](./adsense-progress.md)：AdSense 申请就绪的审计结论、已完成工作、下一步计划和跨会话交接说明。
 
 ## 固定目录约定
 

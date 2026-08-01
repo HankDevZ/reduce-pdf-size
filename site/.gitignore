@@ -40,3 +40,7 @@ next-env.d.ts
 /.wrangler/
 /outputs/
 /work/
+
+# benchmark inputs are generated; manifest.json is tracked so the SHA-256 of
+# every input stays under review even though the PDFs themselves are not
+/benchmark/corpus/*.pdf

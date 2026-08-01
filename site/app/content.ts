@@ -8,6 +8,8 @@ export const faqItems = [
     question: "What should I do if my PDF is still too large?",
     answer:
       "Try Smallest Size and inspect the downloaded copy carefully. If that is still too large, the document may already be optimized or may contain content that cannot be reduced much without a larger quality change. This tool will not present a larger output as a successful compression.",
+    href: "/why-pdf-wont-compress",
+    linkLabel: "See the measured reasons a PDF will not compress.",
   },
   {
     question: "Can I reduce PDF size without losing quality?",

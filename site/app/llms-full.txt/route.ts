@@ -1,3 +1,11 @@
+import {
+  formatBytes,
+  inputBytes,
+  rowFor,
+  SCAN_FILE,
+  TEXT_COMPRESSED_FILE,
+  TEXT_RAW_FILE,
+} from "../benchmark";
 import { faqAnswerText, faqItems } from "../content";
 import { PRIMARY_SOURCES } from "../seo";
 
@@ -37,6 +45,8 @@ The project is built and maintained by HankDevZ. It was published and last revie
 - Balanced is intended for ordinary sharing, email, and online uploads.
 - Smallest Size prioritizes a smaller output and may reduce fine image detail.
 
+Smallest Size is not guaranteed to produce the smallest file. On a 300 dpi grayscale scan the engine stores the heavily downsampled image with a lossless filter rather than JPEG, so Smallest Size yields ${formatBytes(rowFor(SCAN_FILE, "screen")!.outputBytes)} against ${formatBytes(rowFor(SCAN_FILE, "ebook")!.outputBytes)} at Balanced. Compare both levels when a file must be as small as possible. Measured results for eight reproducible test documents are published at ${origin}/compression-levels.
+
 ## Important limits
 
 - Exact output sizes such as 1MB or 300KB are not guaranteed.
@@ -44,6 +54,8 @@ The project is built and maintained by HankDevZ. It was published and last revie
 - Encrypted, password-protected, and detected digitally signed PDFs are rejected.
 - Complex forms, attachments, scripts, layers, annotations, or damaged PDFs may not be preserved exactly or may fail to process.
 - Users should keep the original and inspect important pages, text, images, forms, links, stamps, and signatures in the output.
+
+A refusal is a normal outcome, not an error. Compression removes redundant image data, so a document without any has nothing to give. Measured: the same twelve text pages produce an identical ${formatBytes(rowFor(TEXT_RAW_FILE, "ebook")!.outputBytes)} output whether their content streams arrive raw or compressed, so the realistic ${formatBytes(inputBytes(TEXT_COMPRESSED_FILE))} version more than doubles in size and is refused at every level. Small files, images already at or below a level's target resolution, and documents that have already been compressed are refused for the same reason. Details at ${origin}/why-pdf-wont-compress.
 
 ## Privacy and network behavior
 
@@ -60,6 +72,8 @@ ${faq}
 ## Canonical pages
 
 - Tool: ${origin}/
+- Compression levels compared (measured): ${origin}/compression-levels
+- Why a PDF will not compress (measured): ${origin}/why-pdf-wont-compress
 - About and maintainer information: ${origin}/about
 - Privacy: ${origin}/privacy
 - Terms: ${origin}/terms

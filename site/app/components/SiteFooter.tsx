@@ -12,6 +12,8 @@ export function SiteFooter() {
         </div>
         <nav aria-label="About, contact, and legal navigation">
           <Link href="/">Tool</Link>
+          <Link href="/compression-levels">Compression levels</Link>
+          <Link href="/why-pdf-wont-compress">Why a PDF will not compress</Link>
           <Link href="/about">About</Link>
           <Link href="/privacy">Privacy</Link>
           <Link href="/terms">Terms</Link>

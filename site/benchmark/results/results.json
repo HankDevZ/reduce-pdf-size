@@ -1,0 +1,1065 @@
+{
+  "engine": "GPL Ghostscript 9.56.0",
+  "generatedFrom": "benchmark/corpus/manifest.json",
+  "note": "Sizes are reproducible; timings are machine-dependent and indicative only.",
+  "corpus": [
+    {
+      "file": "01-scan-300dpi.pdf",
+      "title": "300 dpi grayscale scan, 3 pages",
+      "note": "Each page is one full-bleed scanned image. The highest-yield real-world case.",
+      "bytes": 6273509,
+      "sha256": "0a10b5c37154688f358e3df8af94671a9868c5bd1f5ff2b8d51c80dc284ca9c3"
+    },
+    {
+      "file": "02-report-mixed.pdf",
+      "title": "Illustrated report, 6 pages",
+      "note": "Body text plus two ~200 dpi colour photographs per page.",
+      "bytes": 1307484,
+      "sha256": "8cf4bf63657057b5cd4e2b01b86e1033b1c4912e5c1615174129a369315ceb3a"
+    },
+    {
+      "file": "03-text-only.pdf",
+      "title": "Text-only document, raw streams",
+      "note": "12 text pages whose content streams are left uncompressed, as a baseline against case 09.",
+      "bytes": 40300,
+      "sha256": "a8cb7b8b0355521612d291df92acadb70a07f5d1e97d303ce71248ced59f3f10"
+    },
+    {
+      "file": "04-slides-export.pdf",
+      "title": "Presentation export, 8 slides",
+      "note": "Full-bleed 1920x1080 backgrounds behind large display text.",
+      "bytes": 3772037,
+      "sha256": "e1e3991c36f1fd68df3f4fdbe518d96fda5574ecf4d43798680b3d1f0d8e2c7e"
+    },
+    {
+      "file": "05-form-fields.pdf",
+      "title": "Interactive AcroForm, 2 pages",
+      "note": "Eight fillable text fields. Watched for feature loss, not size.",
+      "bytes": 3515,
+      "sha256": "e01df2de48b6b20cf94bec74fdfa79370e7452af8b0cd69a92e8ab96c4edbc09"
+    },
+    {
+      "file": "06-transparency.pdf",
+      "title": "Transparency and blend modes, 4 pages",
+      "note": "720 alpha-blended vector shapes across Multiply, Screen and Normal.",
+      "bytes": 48750,
+      "sha256": "5ca8a8889f84e07fa8065171fa381e1ba03ff30bd30463d72f34e969a20a8d96"
+    },
+    {
+      "file": "07-already-optimised.pdf",
+      "title": "Already-optimised document, 6 pages",
+      "note": "Case 02 pre-processed at /screen, so little headroom remains.",
+      "bytes": 80157,
+      "sha256": "080572ea092ede1346ed84d9331ae2ff65af133dead6c5d901c5b33b601a0488"
+    },
+    {
+      "file": "08-duplicate-images.pdf",
+      "title": "Repeated figure, 10 pages",
+      "note": "One image stored as ten separate objects, targeting -dDetectDuplicateImages.",
+      "bytes": 2742314,
+      "sha256": "2f7ed104face35a73e1c79b97ad300ebb187051846221505b36c333b713e247e"
+    },
+    {
+      "file": "09-text-precompressed.pdf",
+      "title": "Text-only document, compressed streams",
+      "note": "Case 03 with Flate-compressed content streams, matching what real exporters produce.",
+      "bytes": 8328,
+      "sha256": "8074650d36323f8413cd665a4866fcc5867f3ba51889d9e9674126845f8c8e7e"
+    }
+  ],
+  "results": [
+    {
+      "file": "01-scan-300dpi.pdf",
+      "title": "300 dpi grayscale scan, 3 pages",
+      "level": "printer",
+      "levelLabel": "High Quality",
+      "inputBytes": 6273509,
+      "outputBytes": 2012353,
+      "reductionPercent": 67.92,
+      "rejected": false,
+      "elapsedMs": 104,
+      "source": {
+        "pdfVersion": "1.7",
+        "pages": 3,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 3,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 2480,
+          "height": 3508,
+          "filter": "/DCTDecode",
+          "streamBytes": 2110317
+        }
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 3,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 3,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 2480,
+          "height": 3508,
+          "filter": "/DCTDecode",
+          "streamBytes": 686184
+        }
+      }
+    },
+    {
+      "file": "01-scan-300dpi.pdf",
+      "title": "300 dpi grayscale scan, 3 pages",
+      "level": "ebook",
+      "levelLabel": "Balanced",
+      "inputBytes": 6273509,
+      "outputBytes": 828560,
+      "reductionPercent": 86.79,
+      "rejected": false,
+      "elapsedMs": 486,
+      "source": {
+        "pdfVersion": "1.7",
+        "pages": 3,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 3,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 2480,
+          "height": 3508,
+          "filter": "/DCTDecode",
+          "streamBytes": 2110317
+        }
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 3,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 3,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 1240,
+          "height": 1754,
+          "filter": "/DCTDecode",
+          "streamBytes": 280137
+        }
+      }
+    },
+    {
+      "file": "01-scan-300dpi.pdf",
+      "title": "300 dpi grayscale scan, 3 pages",
+      "level": "screen",
+      "levelLabel": "Smallest Size",
+      "inputBytes": 6273509,
+      "outputBytes": 1097859,
+      "reductionPercent": 82.5,
+      "rejected": false,
+      "elapsedMs": 314,
+      "source": {
+        "pdfVersion": "1.7",
+        "pages": 3,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 3,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 2480,
+          "height": 3508,
+          "filter": "/DCTDecode",
+          "streamBytes": 2110317
+        }
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 3,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 3,
+        "imageFilters": [
+          "/FlateDecode"
+        ],
+        "largestImage": {
+          "width": 595,
+          "height": 842,
+          "filter": "/FlateDecode",
+          "streamBytes": 369670
+        }
+      }
+    },
+    {
+      "file": "02-report-mixed.pdf",
+      "title": "Illustrated report, 6 pages",
+      "level": "printer",
+      "levelLabel": "High Quality",
+      "inputBytes": 1307484,
+      "outputBytes": 1319446,
+      "reductionPercent": -0.91,
+      "rejected": true,
+      "elapsedMs": 106,
+      "source": {
+        "pdfVersion": "1.7",
+        "pages": 6,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 12,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 1100,
+          "height": 760,
+          "filter": "/DCTDecode",
+          "streamBytes": 146966
+        }
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 6,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 12,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 1100,
+          "height": 760,
+          "filter": "/DCTDecode",
+          "streamBytes": 146968
+        }
+      }
+    },
+    {
+      "file": "02-report-mixed.pdf",
+      "title": "Illustrated report, 6 pages",
+      "level": "ebook",
+      "levelLabel": "Balanced",
+      "inputBytes": 1307484,
+      "outputBytes": 1313692,
+      "reductionPercent": -0.47,
+      "rejected": true,
+      "elapsedMs": 92,
+      "source": {
+        "pdfVersion": "1.7",
+        "pages": 6,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 12,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 1100,
+          "height": 760,
+          "filter": "/DCTDecode",
+          "streamBytes": 146966
+        }
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 6,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 12,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 1100,
+          "height": 760,
+          "filter": "/DCTDecode",
+          "streamBytes": 146968
+        }
+      }
+    },
+    {
+      "file": "02-report-mixed.pdf",
+      "title": "Illustrated report, 6 pages",
+      "level": "screen",
+      "levelLabel": "Smallest Size",
+      "inputBytes": 1307484,
+      "outputBytes": 80158,
+      "reductionPercent": 93.87,
+      "rejected": false,
+      "elapsedMs": 230,
+      "source": {
+        "pdfVersion": "1.7",
+        "pages": 6,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 12,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 1100,
+          "height": 760,
+          "filter": "/DCTDecode",
+          "streamBytes": 146966
+        }
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 6,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 12,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 400,
+          "height": 276,
+          "filter": "/DCTDecode",
+          "streamBytes": 8773
+        }
+      }
+    },
+    {
+      "file": "03-text-only.pdf",
+      "title": "Text-only document, raw streams",
+      "level": "printer",
+      "levelLabel": "High Quality",
+      "inputBytes": 40300,
+      "outputBytes": 20629,
+      "reductionPercent": 48.81,
+      "rejected": false,
+      "elapsedMs": 59,
+      "source": {
+        "pdfVersion": "1.7",
+        "pages": 12,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 0,
+        "imageFilters": [],
+        "largestImage": null
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 12,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 0,
+        "imageFilters": [],
+        "largestImage": null
+      }
+    },
+    {
+      "file": "03-text-only.pdf",
+      "title": "Text-only document, raw streams",
+      "level": "ebook",
+      "levelLabel": "Balanced",
+      "inputBytes": 40300,
+      "outputBytes": 17139,
+      "reductionPercent": 57.47,
+      "rejected": false,
+      "elapsedMs": 59,
+      "source": {
+        "pdfVersion": "1.7",
+        "pages": 12,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 0,
+        "imageFilters": [],
+        "largestImage": null
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 12,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 0,
+        "imageFilters": [],
+        "largestImage": null
+      }
+    },
+    {
+      "file": "03-text-only.pdf",
+      "title": "Text-only document, raw streams",
+      "level": "screen",
+      "levelLabel": "Smallest Size",
+      "inputBytes": 40300,
+      "outputBytes": 17239,
+      "reductionPercent": 57.22,
+      "rejected": false,
+      "elapsedMs": 59,
+      "source": {
+        "pdfVersion": "1.7",
+        "pages": 12,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 0,
+        "imageFilters": [],
+        "largestImage": null
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 12,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 0,
+        "imageFilters": [],
+        "largestImage": null
+      }
+    },
+    {
+      "file": "04-slides-export.pdf",
+      "title": "Presentation export, 8 slides",
+      "level": "printer",
+      "levelLabel": "High Quality",
+      "inputBytes": 3772037,
+      "outputBytes": 3780930,
+      "reductionPercent": -0.24,
+      "rejected": true,
+      "elapsedMs": 148,
+      "source": {
+        "pdfVersion": "1.7",
+        "pages": 8,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 8,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 1920,
+          "height": 1080,
+          "filter": "/DCTDecode",
+          "streamBytes": 471632
+        }
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 8,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 8,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 1920,
+          "height": 1080,
+          "filter": "/DCTDecode",
+          "streamBytes": 471634
+        }
+      }
+    },
+    {
+      "file": "04-slides-export.pdf",
+      "title": "Presentation export, 8 slides",
+      "level": "ebook",
+      "levelLabel": "Balanced",
+      "inputBytes": 3772037,
+      "outputBytes": 3777652,
+      "reductionPercent": -0.15,
+      "rejected": true,
+      "elapsedMs": 152,
+      "source": {
+        "pdfVersion": "1.7",
+        "pages": 8,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 8,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 1920,
+          "height": 1080,
+          "filter": "/DCTDecode",
+          "streamBytes": 471632
+        }
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 8,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 8,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 1920,
+          "height": 1080,
+          "filter": "/DCTDecode",
+          "streamBytes": 471634
+        }
+      }
+    },
+    {
+      "file": "04-slides-export.pdf",
+      "title": "Presentation export, 8 slides",
+      "level": "screen",
+      "levelLabel": "Smallest Size",
+      "inputBytes": 3772037,
+      "outputBytes": 177570,
+      "reductionPercent": 95.29,
+      "rejected": false,
+      "elapsedMs": 302,
+      "source": {
+        "pdfVersion": "1.7",
+        "pages": 8,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 8,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 1920,
+          "height": 1080,
+          "filter": "/DCTDecode",
+          "streamBytes": 471632
+        }
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 8,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 8,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 960,
+          "height": 540,
+          "filter": "/DCTDecode",
+          "streamBytes": 21516
+        }
+      }
+    },
+    {
+      "file": "05-form-fields.pdf",
+      "title": "Interactive AcroForm, 2 pages",
+      "level": "printer",
+      "levelLabel": "High Quality",
+      "inputBytes": 3515,
+      "outputBytes": 9773,
+      "reductionPercent": -178.04,
+      "rejected": true,
+      "elapsedMs": 38,
+      "source": {
+        "pdfVersion": "1.7",
+        "pages": 2,
+        "hasAcroForm": true,
+        "hasTransparencyGroup": false,
+        "imageObjects": 0,
+        "imageFilters": [],
+        "largestImage": null
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 2,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 0,
+        "imageFilters": [],
+        "largestImage": null
+      }
+    },
+    {
+      "file": "05-form-fields.pdf",
+      "title": "Interactive AcroForm, 2 pages",
+      "level": "ebook",
+      "levelLabel": "Balanced",
+      "inputBytes": 3515,
+      "outputBytes": 7038,
+      "reductionPercent": -100.23,
+      "rejected": true,
+      "elapsedMs": 38,
+      "source": {
+        "pdfVersion": "1.7",
+        "pages": 2,
+        "hasAcroForm": true,
+        "hasTransparencyGroup": false,
+        "imageObjects": 0,
+        "imageFilters": [],
+        "largestImage": null
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 2,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 0,
+        "imageFilters": [],
+        "largestImage": null
+      }
+    },
+    {
+      "file": "05-form-fields.pdf",
+      "title": "Interactive AcroForm, 2 pages",
+      "level": "screen",
+      "levelLabel": "Smallest Size",
+      "inputBytes": 3515,
+      "outputBytes": 7048,
+      "reductionPercent": -100.51,
+      "rejected": true,
+      "elapsedMs": 38,
+      "source": {
+        "pdfVersion": "1.7",
+        "pages": 2,
+        "hasAcroForm": true,
+        "hasTransparencyGroup": false,
+        "imageObjects": 0,
+        "imageFilters": [],
+        "largestImage": null
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 2,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 0,
+        "imageFilters": [],
+        "largestImage": null
+      }
+    },
+    {
+      "file": "06-transparency.pdf",
+      "title": "Transparency and blend modes, 4 pages",
+      "level": "printer",
+      "levelLabel": "High Quality",
+      "inputBytes": 48750,
+      "outputBytes": 27996,
+      "reductionPercent": 42.57,
+      "rejected": false,
+      "elapsedMs": 45,
+      "source": {
+        "pdfVersion": "1.7",
+        "pages": 4,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": true,
+        "imageObjects": 0,
+        "imageFilters": [],
+        "largestImage": null
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 4,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": true,
+        "imageObjects": 0,
+        "imageFilters": [],
+        "largestImage": null
+      }
+    },
+    {
+      "file": "06-transparency.pdf",
+      "title": "Transparency and blend modes, 4 pages",
+      "level": "ebook",
+      "levelLabel": "Balanced",
+      "inputBytes": 48750,
+      "outputBytes": 24912,
+      "reductionPercent": 48.9,
+      "rejected": false,
+      "elapsedMs": 44,
+      "source": {
+        "pdfVersion": "1.7",
+        "pages": 4,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": true,
+        "imageObjects": 0,
+        "imageFilters": [],
+        "largestImage": null
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 4,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": true,
+        "imageObjects": 0,
+        "imageFilters": [],
+        "largestImage": null
+      }
+    },
+    {
+      "file": "06-transparency.pdf",
+      "title": "Transparency and blend modes, 4 pages",
+      "level": "screen",
+      "levelLabel": "Smallest Size",
+      "inputBytes": 48750,
+      "outputBytes": 24940,
+      "reductionPercent": 48.84,
+      "rejected": false,
+      "elapsedMs": 44,
+      "source": {
+        "pdfVersion": "1.7",
+        "pages": 4,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": true,
+        "imageObjects": 0,
+        "imageFilters": [],
+        "largestImage": null
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 4,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": true,
+        "imageObjects": 0,
+        "imageFilters": [],
+        "largestImage": null
+      }
+    },
+    {
+      "file": "07-already-optimised.pdf",
+      "title": "Already-optimised document, 6 pages",
+      "level": "printer",
+      "levelLabel": "High Quality",
+      "inputBytes": 80157,
+      "outputBytes": 85887,
+      "reductionPercent": -7.15,
+      "rejected": true,
+      "elapsedMs": 42,
+      "source": {
+        "pdfVersion": "1.6",
+        "pages": 6,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 12,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 400,
+          "height": 276,
+          "filter": "/DCTDecode",
+          "streamBytes": 8773
+        }
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 6,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 12,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 400,
+          "height": 276,
+          "filter": "/DCTDecode",
+          "streamBytes": 8775
+        }
+      }
+    },
+    {
+      "file": "07-already-optimised.pdf",
+      "title": "Already-optimised document, 6 pages",
+      "level": "ebook",
+      "levelLabel": "Balanced",
+      "inputBytes": 80157,
+      "outputBytes": 80133,
+      "reductionPercent": 0.03,
+      "rejected": false,
+      "elapsedMs": 42,
+      "source": {
+        "pdfVersion": "1.6",
+        "pages": 6,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 12,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 400,
+          "height": 276,
+          "filter": "/DCTDecode",
+          "streamBytes": 8773
+        }
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 6,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 12,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 400,
+          "height": 276,
+          "filter": "/DCTDecode",
+          "streamBytes": 8775
+        }
+      }
+    },
+    {
+      "file": "07-already-optimised.pdf",
+      "title": "Already-optimised document, 6 pages",
+      "level": "screen",
+      "levelLabel": "Smallest Size",
+      "inputBytes": 80157,
+      "outputBytes": 80179,
+      "reductionPercent": -0.03,
+      "rejected": true,
+      "elapsedMs": 42,
+      "source": {
+        "pdfVersion": "1.6",
+        "pages": 6,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 12,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 400,
+          "height": 276,
+          "filter": "/DCTDecode",
+          "streamBytes": 8773
+        }
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 6,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 12,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 400,
+          "height": 276,
+          "filter": "/DCTDecode",
+          "streamBytes": 8775
+        }
+      }
+    },
+    {
+      "file": "08-duplicate-images.pdf",
+      "title": "Repeated figure, 10 pages",
+      "level": "printer",
+      "levelLabel": "High Quality",
+      "inputBytes": 2742314,
+      "outputBytes": 290424,
+      "reductionPercent": 89.41,
+      "rejected": false,
+      "elapsedMs": 116,
+      "source": {
+        "pdfVersion": "1.7",
+        "pages": 10,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 10,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 1400,
+          "height": 980,
+          "filter": "/DCTDecode",
+          "streamBytes": 273644
+        }
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 10,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 1,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 1400,
+          "height": 980,
+          "filter": "/DCTDecode",
+          "streamBytes": 273646
+        }
+      }
+    },
+    {
+      "file": "08-duplicate-images.pdf",
+      "title": "Repeated figure, 10 pages",
+      "level": "ebook",
+      "levelLabel": "Balanced",
+      "inputBytes": 2742314,
+      "outputBytes": 284262,
+      "reductionPercent": 89.63,
+      "rejected": false,
+      "elapsedMs": 117,
+      "source": {
+        "pdfVersion": "1.7",
+        "pages": 10,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 10,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 1400,
+          "height": 980,
+          "filter": "/DCTDecode",
+          "streamBytes": 273644
+        }
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 10,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 1,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 1400,
+          "height": 980,
+          "filter": "/DCTDecode",
+          "streamBytes": 273646
+        }
+      }
+    },
+    {
+      "file": "08-duplicate-images.pdf",
+      "title": "Repeated figure, 10 pages",
+      "level": "screen",
+      "levelLabel": "Smallest Size",
+      "inputBytes": 2742314,
+      "outputBytes": 16272,
+      "reductionPercent": 99.41,
+      "rejected": false,
+      "elapsedMs": 247,
+      "source": {
+        "pdfVersion": "1.7",
+        "pages": 10,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 10,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 1400,
+          "height": 980,
+          "filter": "/DCTDecode",
+          "streamBytes": 273644
+        }
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 10,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 1,
+        "imageFilters": [
+          "/DCTDecode"
+        ],
+        "largestImage": {
+          "width": 466,
+          "height": 326,
+          "filter": "/DCTDecode",
+          "streamBytes": 5578
+        }
+      }
+    },
+    {
+      "file": "09-text-precompressed.pdf",
+      "title": "Text-only document, compressed streams",
+      "level": "printer",
+      "levelLabel": "High Quality",
+      "inputBytes": 8328,
+      "outputBytes": 20629,
+      "reductionPercent": -147.71,
+      "rejected": true,
+      "elapsedMs": 56,
+      "source": {
+        "pdfVersion": "1.7",
+        "pages": 12,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 0,
+        "imageFilters": [],
+        "largestImage": null
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 12,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 0,
+        "imageFilters": [],
+        "largestImage": null
+      }
+    },
+    {
+      "file": "09-text-precompressed.pdf",
+      "title": "Text-only document, compressed streams",
+      "level": "ebook",
+      "levelLabel": "Balanced",
+      "inputBytes": 8328,
+      "outputBytes": 17139,
+      "reductionPercent": -105.8,
+      "rejected": true,
+      "elapsedMs": 57,
+      "source": {
+        "pdfVersion": "1.7",
+        "pages": 12,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 0,
+        "imageFilters": [],
+        "largestImage": null
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 12,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 0,
+        "imageFilters": [],
+        "largestImage": null
+      }
+    },
+    {
+      "file": "09-text-precompressed.pdf",
+      "title": "Text-only document, compressed streams",
+      "level": "screen",
+      "levelLabel": "Smallest Size",
+      "inputBytes": 8328,
+      "outputBytes": 17239,
+      "reductionPercent": -107,
+      "rejected": true,
+      "elapsedMs": 56,
+      "source": {
+        "pdfVersion": "1.7",
+        "pages": 12,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 0,
+        "imageFilters": [],
+        "largestImage": null
+      },
+      "result": {
+        "pdfVersion": "1.6",
+        "pages": 12,
+        "hasAcroForm": false,
+        "hasTransparencyGroup": false,
+        "imageObjects": 0,
+        "imageFilters": [],
+        "largestImage": null
+      }
+    }
+  ]
+}

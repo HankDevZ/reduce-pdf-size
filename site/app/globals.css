@@ -1068,6 +1068,23 @@ h1 {
   margin-bottom: 8px;
 }
 
+/* Article pages run consecutive paragraphs, unlike the legal pages where every
+   paragraph follows a heading and inherits its spacing. The heading top margin
+   collapses with this, so existing pages are unaffected. */
+.legal-article p {
+  margin-bottom: 20px;
+}
+
+.legal-article ul,
+.legal-article ol {
+  margin: 0 0 20px;
+  padding-left: 22px;
+}
+
+.legal-callout p:last-child {
+  margin-bottom: 0;
+}
+
 .legal-article a {
   color: var(--primary);
 }
@@ -1081,6 +1098,117 @@ h1 {
   padding: 24px;
   background: var(--parchment);
   border-radius: 18px;
+}
+
+.quality-followup {
+  margin-top: 24px;
+  font-size: 15px;
+  text-align: center;
+}
+
+.quality-followup a {
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.breadcrumb {
+  margin-bottom: 28px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.breadcrumb a {
+  color: var(--muted);
+}
+
+.breadcrumb a:hover {
+  color: var(--ink);
+}
+
+.command-block {
+  margin: 16px 0;
+  padding: 16px 18px;
+  overflow-x: auto;
+  background: var(--canvas);
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre;
+}
+
+.legal-article code {
+  padding: 2px 6px;
+  background: var(--parchment);
+  border-radius: 6px;
+  font-size: 0.92em;
+}
+
+.command-block code {
+  padding: 0;
+  background: none;
+}
+
+/* Measured-data tables. The article column is narrower than the widest table,
+   so the wrapper scrolls rather than letting the page scroll sideways. */
+.data-table-wrap {
+  margin: 28px 0;
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.data-table th,
+.data-table td {
+  padding: 14px 16px;
+  border-top: 1px solid var(--hairline);
+  text-align: left;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.data-table thead th {
+  border-top: 0;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.data-table tbody th {
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 600;
+  white-space: normal;
+}
+
+.data-table td {
+  color: #515154;
+  font-size: 15px;
+}
+
+.result-delta {
+  display: block;
+  margin-top: 2px;
+  color: var(--success);
+  font-size: 13px;
+}
+
+.result-none {
+  color: var(--muted);
+  font-style: italic;
+}
+
+@media (max-width: 640px) {
+  .data-table th,
+  .data-table td {
+    padding: 12px;
+    font-size: 14px;
+  }
 }
 
 .contact-callout {

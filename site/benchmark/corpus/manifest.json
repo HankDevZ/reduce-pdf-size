@@ -1,0 +1,65 @@
+[
+  {
+    "file": "01-scan-300dpi.pdf",
+    "title": "300 dpi grayscale scan, 3 pages",
+    "note": "Each page is one full-bleed scanned image. The highest-yield real-world case.",
+    "bytes": 6273509,
+    "sha256": "0a10b5c37154688f358e3df8af94671a9868c5bd1f5ff2b8d51c80dc284ca9c3"
+  },
+  {
+    "file": "02-report-mixed.pdf",
+    "title": "Illustrated report, 6 pages",
+    "note": "Body text plus two ~200 dpi colour photographs per page.",
+    "bytes": 1307484,
+    "sha256": "8cf4bf63657057b5cd4e2b01b86e1033b1c4912e5c1615174129a369315ceb3a"
+  },
+  {
+    "file": "03-text-only.pdf",
+    "title": "Text-only document, raw streams",
+    "note": "12 text pages whose content streams are left uncompressed, as a baseline against case 09.",
+    "bytes": 40300,
+    "sha256": "a8cb7b8b0355521612d291df92acadb70a07f5d1e97d303ce71248ced59f3f10"
+  },
+  {
+    "file": "04-slides-export.pdf",
+    "title": "Presentation export, 8 slides",
+    "note": "Full-bleed 1920x1080 backgrounds behind large display text.",
+    "bytes": 3772037,
+    "sha256": "e1e3991c36f1fd68df3f4fdbe518d96fda5574ecf4d43798680b3d1f0d8e2c7e"
+  },
+  {
+    "file": "05-form-fields.pdf",
+    "title": "Interactive AcroForm, 2 pages",
+    "note": "Eight fillable text fields. Watched for feature loss, not size.",
+    "bytes": 3515,
+    "sha256": "e01df2de48b6b20cf94bec74fdfa79370e7452af8b0cd69a92e8ab96c4edbc09"
+  },
+  {
+    "file": "06-transparency.pdf",
+    "title": "Transparency and blend modes, 4 pages",
+    "note": "720 alpha-blended vector shapes across Multiply, Screen and Normal.",
+    "bytes": 48750,
+    "sha256": "5ca8a8889f84e07fa8065171fa381e1ba03ff30bd30463d72f34e969a20a8d96"
+  },
+  {
+    "file": "07-already-optimised.pdf",
+    "title": "Already-optimised document, 6 pages",
+    "note": "Case 02 pre-processed at /screen, so little headroom remains.",
+    "bytes": 80157,
+    "sha256": "080572ea092ede1346ed84d9331ae2ff65af133dead6c5d901c5b33b601a0488"
+  },
+  {
+    "file": "08-duplicate-images.pdf",
+    "title": "Repeated figure, 10 pages",
+    "note": "One image stored as ten separate objects, targeting -dDetectDuplicateImages.",
+    "bytes": 2742314,
+    "sha256": "2f7ed104face35a73e1c79b97ad300ebb187051846221505b36c333b713e247e"
+  },
+  {
+    "file": "09-text-precompressed.pdf",
+    "title": "Text-only document, compressed streams",
+    "note": "Case 03 with Flate-compressed content streams, matching what real exporters produce.",
+    "bytes": 8328,
+    "sha256": "8074650d36323f8413cd665a4866fcc5867f3ba51889d9e9674126845f8c8e7e"
+  }
+]

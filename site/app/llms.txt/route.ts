@@ -14,6 +14,8 @@ Reduce PDF Size supports PDF files up to 100MB and provides High Quality, Balanc
 ## Use the tool
 
 - [Reduce PDF Size](${origin}/): Select one PDF, choose a compression level, compress it in the browser, review the before-and-after sizes, and download the result.
+- [PDF Compression Levels Compared](${origin}/compression-levels): Measured output sizes for all three levels across eight reproducible test documents, including cases where Smallest Size produces a larger file than Balanced.
+- [Why Your PDF Will Not Compress](${origin}/why-pdf-wont-compress): Measured reasons a PDF is refused, including that an ordinary text document with compressed streams more than doubles in size.
 - [Privacy](${origin}/privacy): Browser-local processing, network behavior, temporary memory, and tracking information.
 - [Terms of Use](${origin}/terms): Compatibility limits, output-review guidance, and warranty terms.
 

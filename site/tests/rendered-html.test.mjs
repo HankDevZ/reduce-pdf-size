@@ -39,6 +39,16 @@ const publicPages = {
     description:
       "Reduce PDF file size in your browser for free. Choose a compression level, keep your files private, and download a smaller PDF without uploading it.",
   },
+  "/compression-levels": {
+    title: "PDF Compression Levels Compared | Reduce PDF Size",
+    description:
+      "Measured results for the High Quality, Balanced, and Smallest Size levels across eight test PDFs, with the reproducible benchmark behind every number.",
+  },
+  "/why-pdf-wont-compress": {
+    title: "Why Your PDF Will Not Compress | Reduce PDF Size",
+    description:
+      "Four measured reasons a PDF refuses to get smaller, including the common case where compressing an ordinary text document makes the file twice as large.",
+  },
   "/about": {
     title: "About | Reduce PDF Size",
     description:
@@ -273,13 +283,16 @@ test("robots and sitemap expose all canonical public pages", async () => {
   );
   assert.deepEqual(locations, [
     "http://localhost/",
+    "http://localhost/compression-levels",
+    "http://localhost/why-pdf-wont-compress",
     "http://localhost/about",
     "http://localhost/privacy",
     "http://localhost/terms",
     "http://localhost/source",
     "http://localhost/contact",
   ]);
-  assert.deepEqual(lastModified, Array(6).fill("2026-08-01"));
+  assert.deepEqual(lastModified, Array(8).fill("2026-08-01"));
+  assert.equal(locations.length, Object.keys(publicPages).length);
   assert.doesNotMatch(sitemap, /<priority>|<changefreq>/);
 });
 
@@ -408,6 +421,128 @@ test("worker is local-only and uses the documented Ghostscript settings", async 
   assert.match(worker, /-dPDFSETTINGS=/);
   assert.match(worker, /\/ghostscript\/gs\.mjs/);
   assert.doesNotMatch(worker, /https?:\/\//);
+});
+
+test("the compression-levels article reports the measured benchmark data", async () => {
+  const benchmark = JSON.parse(
+    await readFile(new URL("../benchmark/results/results.json", import.meta.url), "utf8"),
+  );
+  const html = await (await render("/compression-levels")).text();
+
+  const schemas = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+    .map((match) => JSON.parse(decodeHtml(match[1])));
+  const article = schemas.find((schema) => schema["@type"] === "TechArticle");
+  const breadcrumb = schemas.find((schema) => schema["@type"] === "BreadcrumbList");
+
+  assert.ok(article, "TechArticle schema is present and parseable");
+  assert.ok(breadcrumb, "BreadcrumbList schema is present and parseable");
+  assert.equal(article.url, "http://localhost/compression-levels");
+  assert.equal(article.author["@id"], "http://localhost/#maintainer");
+  assert.equal(article.publisher["@id"], "http://localhost/#maintainer");
+  assert.equal(article.isPartOf["@id"], "http://localhost/#website");
+  assert.equal(article.inLanguage, "en");
+  assert.equal(article.datePublished, "2026-08-01");
+  assert.equal(article.dateModified, "2026-08-01");
+  assert.deepEqual(article.citation, [
+    "https://ghostscript.readthedocs.io/en/latest/VectorDevices.html",
+    "https://github.com/HankDevZ/reduce-pdf-size",
+    "https://firebase.google.com/docs/analytics/web/get-started",
+  ]);
+  assert.equal(breadcrumb.itemListElement.length, 2);
+  assert.equal(
+    breadcrumb.itemListElement[1].item,
+    "http://localhost/compression-levels",
+  );
+
+  assert.match(html, /<nav class="breadcrumb"/);
+  assert.match(html, /class="data-table"/);
+  assert.match(html, new RegExp(benchmark.engine.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+
+  // Every corpus entry must appear, so a new test document cannot be added to
+  // the benchmark without the article picking it up.
+  for (const entry of benchmark.corpus) {
+    assert.match(html, new RegExp(entry.title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  }
+
+  // The rendered figures must match the measured data rather than prose typed
+  // by hand: check the reduction shown for every accepted result.
+  const stripped = stripHtml(html);
+  for (const row of benchmark.results) {
+    if (row.rejected) continue;
+    assert.ok(
+      stripped.includes(`−${row.reductionPercent.toFixed(1)}%`),
+      `${row.file} at ${row.level} shows its measured reduction`,
+    );
+  }
+
+  // The headline finding must still hold, or the article text is wrong.
+  const scanBalanced = benchmark.results.find(
+    (row) => row.file === "01-scan-300dpi.pdf" && row.level === "ebook",
+  );
+  const scanSmallest = benchmark.results.find(
+    (row) => row.file === "01-scan-300dpi.pdf" && row.level === "screen",
+  );
+  assert.ok(
+    scanSmallest.outputBytes > scanBalanced.outputBytes,
+    "Smallest Size is still larger than Balanced on the scan",
+  );
+  assert.match(html, /Smallest Size is not always the smallest/);
+  assert.match(html, /FlateDecode/);
+});
+
+test("the why-it-will-not-compress article rests on the measured text pair", async () => {
+  const benchmark = JSON.parse(
+    await readFile(new URL("../benchmark/results/results.json", import.meta.url), "utf8"),
+  );
+  const html = await (await render("/why-pdf-wont-compress")).text();
+
+  const schemas = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+    .map((match) => JSON.parse(decodeHtml(match[1])));
+  const article = schemas.find((schema) => schema["@type"] === "TechArticle");
+  const breadcrumb = schemas.find((schema) => schema["@type"] === "BreadcrumbList");
+
+  assert.ok(article, "TechArticle schema is present and parseable");
+  assert.ok(breadcrumb, "BreadcrumbList schema is present and parseable");
+  assert.equal(article.url, "http://localhost/why-pdf-wont-compress");
+  assert.equal(article.author["@id"], "http://localhost/#maintainer");
+  assert.equal(article.isPartOf["@id"], "http://localhost/#website");
+  assert.equal(
+    breadcrumb.itemListElement[1].item,
+    "http://localhost/why-pdf-wont-compress",
+  );
+
+  const at = (file, level) =>
+    benchmark.results.find((row) => row.file === file && row.level === level);
+  const raw = at("03-text-only.pdf", "ebook");
+  const compressed = at("09-text-precompressed.pdf", "ebook");
+
+  // The article's central claim: same pages, same output, opposite verdicts.
+  assert.equal(
+    raw.outputBytes,
+    compressed.outputBytes,
+    "both text variants still produce an identical output",
+  );
+  assert.ok(
+    compressed.rejected && !raw.rejected,
+    "the realistic text document is still refused while the raw one is not",
+  );
+  assert.ok(
+    compressed.inputBytes < raw.inputBytes,
+    "the compressed-stream input is still the smaller of the two",
+  );
+
+  // Every level must still refuse the realistic text document.
+  for (const level of ["printer", "ebook", "screen"]) {
+    assert.ok(
+      at("09-text-precompressed.pdf", level).rejected,
+      `text with compressed streams is refused at ${level}`,
+    );
+  }
+
+  assert.match(html, /class="data-table"/);
+  assert.match(html, /already compressed/i);
+  assert.equal((html.match(/<h2/g) ?? []).length, 6);
+  assert.match(html, /href="\/compression-levels"/);
 });
 
 test("social preview image dimensions match the declared metadata", async () => {

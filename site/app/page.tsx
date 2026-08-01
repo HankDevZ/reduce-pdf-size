@@ -309,6 +309,12 @@ export default async function Home() {
                   </tbody>
                 </table>
               </div>
+              <p className="quality-followup">
+                <Link href="/compression-levels">
+                  See measured results for all three levels across eight test
+                  PDFs <span aria-hidden="true">↗</span>
+                </Link>
+              </p>
             </div>
           </div>
         </section>
